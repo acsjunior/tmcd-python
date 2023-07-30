@@ -353,6 +353,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes">2.2. Matrizes</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operacoes-com-matrizes">2.2.1. Operações com matrizes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes-de-formas-especiais">2.2.2. Matrizes de formas especiais</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rank-e-inversa-de-uma-matriz">2.2.3. Rank e inversa de uma matriz</a></li>
 </ul>
 </li>
 </ul>
@@ -811,6 +813,67 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="matrizes-de-formas-especiais">
+<h3><span class="section-number">2.2.2. </span>Matrizes de formas especiais<a class="headerlink" href="#matrizes-de-formas-especiais" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="rank-e-inversa-de-uma-matriz">
+<h3><span class="section-number">2.2.3. </span>Rank e inversa de uma matriz<a class="headerlink" href="#rank-e-inversa-de-uma-matriz" title="Permalink to this heading">#</a></h3>
+<p>Inversa de uma matriz.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+<span class="n">A_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">@</span> <span class="n">A_inv</span> <span class="c1"># Conferindo: deve resultar na matriz identidade</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.00000000e+00, -1.11022302e-16],
+       [ 1.11022302e-16,  1.00000000e+00]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Neste caso o vetor <span class="math notranslate nohighlight">\(\mathbf{a}^{-} = (1, 0, 0, 0)\)</span> é a inversa generalizada de \mathbf{a}. Para verificar basta fazer a multiplicação matricial.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+<span class="n">a_invg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">@</span> <span class="n">a_invg</span> <span class="o">@</span> <span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1],
+       [2],
+       [3],
+       [4]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Inversa generalizada de Moore-Penrose.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Matriz singular (a terceira coluna é a soma da primeira com a segunda)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+
+<span class="n">A_ginv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="c1"># Conferindo</span>
+<span class="n">A</span> <span class="o">@</span> <span class="n">A_ginv</span> <span class="o">@</span> <span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2.00000000e+00, 2.00000000e+00, 3.00000000e+00],
+       [1.00000000e+00, 6.66133815e-16, 1.00000000e+00],
+       [3.00000000e+00, 2.00000000e+00, 4.00000000e+00]])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -878,6 +941,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes">2.2. Matrizes</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operacoes-com-matrizes">2.2.1. Operações com matrizes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes-de-formas-especiais">2.2.2. Matrizes de formas especiais</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rank-e-inversa-de-uma-matriz">2.2.3. Rank e inversa de uma matriz</a></li>
 </ul>
 </li>
 </ul>
