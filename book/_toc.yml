@@ -5,3 +5,5 @@ format: jb-book
 root: index
 options:
   numbered: true
+chapters:
+  - file: content/CDI
