@@ -7,3 +7,4 @@ options:
   numbered: true
 chapters:
   - file: content/CDI
+  - file: content/AM
