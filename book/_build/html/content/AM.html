@@ -355,6 +355,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operacoes-com-matrizes">2.2.1. Operações com matrizes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes-de-formas-especiais">2.2.2. Matrizes de formas especiais</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rank-e-inversa-de-uma-matriz">2.2.3. Rank e inversa de uma matriz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes-positivas-definidas">2.2.4. Matrizes positivas definidas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determinante-e-traco-de-uma-matriz">2.2.5. Determinante e traço de uma matriz</a></li>
 </ul>
 </li>
 </ul>
@@ -874,6 +876,41 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="matrizes-positivas-definidas">
+<h3><span class="section-number">2.2.4. </span>Matrizes positivas definidas<a class="headerlink" href="#matrizes-positivas-definidas" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="determinante-e-traco-de-uma-matriz">
+<h3><span class="section-number">2.2.5. </span>Determinante e traço de uma matriz<a class="headerlink" href="#determinante-e-traco-de-uma-matriz" title="Permalink to this heading">#</a></h3>
+<p>Determinante de uma matriz.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8.000000000000002
+</pre></div>
+</div>
+</div>
+</div>
+<p>Diferentemente do R, a função <code>det()</code> da biblioteca NumPy não oferece a opção do determinante na escala logarítmica.</p>
+<p>Traço de uma matriz.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -943,6 +980,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operacoes-com-matrizes">2.2.1. Operações com matrizes</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes-de-formas-especiais">2.2.2. Matrizes de formas especiais</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rank-e-inversa-de-uma-matriz">2.2.3. Rank e inversa de uma matriz</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrizes-positivas-definidas">2.2.4. Matrizes positivas definidas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determinante-e-traco-de-uma-matriz">2.2.5. Determinante e traço de uma matriz</a></li>
 </ul>
 </li>
 </ul>
