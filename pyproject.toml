@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "tmcd-python"
+version = "0.1.0"
+description = ""
+authors = ["António Júnior <juniorssz@gmail.com>"]
+readme = "README.md"
+packages = [{include = "tmcd_python"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+jupyter-book = "^0.15.1"
+numpy = "^1.25.1"
+matplotlib = "^3.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
