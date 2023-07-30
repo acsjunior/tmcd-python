@@ -358,6 +358,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-de-ordem-superior">1.2.3. Derivadas de ordem superior</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-da-derivada">1.2.4. Importância da derivada</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reducao-de-dados">1.2.5. Redução de dados</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-parciais">1.2.6. Derivadas parciais</a></li>
 </ul>
 </li>
 </ul>
@@ -881,6 +882,89 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
 </div>
 </div>
 </section>
+<section id="derivadas-parciais">
+<h3><span class="section-number">1.2.6. </span>Derivadas parciais<a class="headerlink" href="#derivadas-parciais" title="Permalink to this heading">#</a></h3>
+<p>Exemplo de função bidimensional (entrada escalar).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fx1x2</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="mi">6</span><span class="o">*</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">9</span><span class="o">*</span><span class="n">x1</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">x1</span><span class="o">*</span><span class="n">x2</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x2</span> <span class="o">+</span> <span class="mi">5</span><span class="o">*</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span>
+  <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Com a função implementada podemos avaliá-la em alguns pontos. Por exemplo, vamos avaliar a função nos pontos <span class="math notranslate nohighlight">\(x_1 = 2\)</span> e <span class="math notranslate nohighlight">\(x_2 = 3\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fx1x2</span><span class="p">(</span><span class="n">x1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">x2</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12
+</pre></div>
+</div>
+</div>
+</div>
+<p>Neste exemplo, vamos usar uma grade com <span class="math notranslate nohighlight">\(100^2\)</span> pontos regularmente espaçados entre <span class="math notranslate nohighlight">\(-1\)</span> e <span class="math notranslate nohighlight">\(3\)</span> nas direções de <span class="math notranslate nohighlight">\(x_1\)</span> e <span class="math notranslate nohighlight">\(x_2\)</span>. A função <code>product()</code> da biblioteca Itertools auxilia nesta tarefa.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">grade</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>O próximo passo é avaliar a função nos pontos da grade.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fx1x2</span><span class="p">(</span><span class="n">x1</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">grade</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Para desenhar o gráfico vamos usar as funções <code>contourf()</code> e <code>contour()</code> da biblioteca Matplotlib.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Rearranja os valores</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+
+<span class="c1"># Desenha o gráfico</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;YlOrRd&quot;</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bd650bf39492e4d66102b3a2b221bc4a80aee88ac42b2454e5c452c36bd0f2e8.png" src="../_images/bd650bf39492e4d66102b3a2b221bc4a80aee88ac42b2454e5c452c36bd0f2e8.png" />
+</div>
+</div>
+<p>Uma outra forma de desenhar o gráfico é usando a função <code>plot_wireframe()</code> da biblioteca Matplotlib.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;projection&#39;</span><span class="p">:</span> <span class="s1">&#39;3d&#39;</span><span class="p">})</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_wireframe</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span> <span class="n">zlabel</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/226eeec7194526c9419ce6c2aea62f719a31cc2b300faab562b54171a24b0fdb.png" src="../_images/226eeec7194526c9419ce6c2aea62f719a31cc2b300faab562b54171a24b0fdb.png" />
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -954,6 +1038,7 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-de-ordem-superior">1.2.3. Derivadas de ordem superior</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-da-derivada">1.2.4. Importância da derivada</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reducao-de-dados">1.2.5. Redução de dados</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-parciais">1.2.6. Derivadas parciais</a></li>
 </ul>
 </li>
 </ul>
