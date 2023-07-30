@@ -357,6 +357,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regras-de-derivacao">1.2.2. Regras de derivação</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-de-ordem-superior">1.2.3. Derivadas de ordem superior</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-da-derivada">1.2.4. Importância da derivada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reducao-de-dados">1.2.5. Redução de dados</a></li>
 </ul>
 </li>
 </ul>
@@ -826,6 +827,60 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
 </div>
 </div>
 </section>
+<section id="reducao-de-dados">
+<h3><span class="section-number">1.2.5. </span>Redução de dados<a class="headerlink" href="#reducao-de-dados" title="Permalink to this heading">#</a></h3>
+<p>Função perda quadrática.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">SQ_mu</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Podemos avaliar a função em algum ponto de interesse, por exemplo <span class="math notranslate nohighlight">\(\mu = 10\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">SQ_mu</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21
+</pre></div>
+</div>
+</div>
+</div>
+<p>Por exemplo, quanto perdemos se usarmos <span class="math notranslate nohighlight">\(\mu = 20\)</span>?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">SQ_mu</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>501
+</pre></div>
+</div>
+</div>
+</div>
+<p>Em Python a notação de Compreensão de Lista nos permite fazer tal operação de forma simples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="p">[</span><span class="n">SQ_mu</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">mu</span> <span class="ow">in</span> <span class="n">mu_vec</span><span class="p">]</span> <span class="c1"># Executa a função SQ_mu() para todo mu em mu_vec.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[21, 501]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -898,6 +953,7 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regras-de-derivacao">1.2.2. Regras de derivação</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-de-ordem-superior">1.2.3. Derivadas de ordem superior</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importancia-da-derivada">1.2.4. Importância da derivada</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reducao-de-dados">1.2.5. Redução de dados</a></li>
 </ul>
 </li>
 </ul>
