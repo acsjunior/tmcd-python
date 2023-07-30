@@ -7,13 +7,14 @@ readme = "README.md"
 packages = [{include = "tmcd_python"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "<3.13,>=3.9"
 jupyter-book = "^0.15.1"
 numpy = "^1.25.1"
 matplotlib = "^3.7.2"
 sympy = "^1.12"
 pandas = "^2.0.3"
 statsmodels = "^0.14.0"
+scipy = "^1.11.1"
 
 
 [build-system]
