@@ -348,6 +348,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-limites-e-continuidade">1.1. Funções, limites e continuidade</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-com-duas-ou-mais-variaveis-independentes">1.1.1. Funções com duas ou mais variáveis independentes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-especiais">1.1.2. Funções especiais</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limites-e-continuidade">1.1.3. Limites e continuidade</a></li>
 </ul>
 </li>
 </ul>
@@ -661,6 +663,27 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
 </div>
 <p>Diferentemente do efeito no R, ao obter como entrada um vetor do Numpy, o Python executa a função para cada vetor e devolve um vetor com os resultados, não sendo necessário realizar a instrução <code>for</code> para avaliar a função em mais de um ponto.</p>
 </section>
+<section id="funcoes-especiais">
+<h3><span class="section-number">1.1.2. </span>Funções especiais<a class="headerlink" href="#funcoes-especiais" title="Permalink to this heading">#</a></h3>
+<p>Em Python a função exponencial está disponível por meio da função <code>exp()</code> da biblioteca Numpy. Veja alguns exemplos</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">5</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="limites-e-continuidade">
+<h3><span class="section-number">1.1.3. </span>Limites e continuidade<a class="headerlink" href="#limites-e-continuidade" title="Permalink to this heading">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -724,6 +747,8 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-limites-e-continuidade">1.1. Funções, limites e continuidade</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-com-duas-ou-mais-variaveis-independentes">1.1.1. Funções com duas ou mais variáveis independentes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcoes-especiais">1.1.2. Funções especiais</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limites-e-continuidade">1.1.3. Limites e continuidade</a></li>
 </ul>
 </li>
 </ul>
