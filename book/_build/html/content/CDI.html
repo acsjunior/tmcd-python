@@ -361,6 +361,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-parciais">1.2.6. Derivadas parciais</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradiente-e-hessiano">1.2.7. Gradiente e Hessiano</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#series-de-taylor">1.2.8. Séries de Taylor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regressao-linear-simples">1.2.9. Regressão linear simples</a></li>
 </ul>
 </li>
 </ul>
@@ -1009,6 +1010,54 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
 </div>
 </div>
 </section>
+<section id="regressao-linear-simples">
+<h3><span class="section-number">1.2.9. </span>Regressão linear simples<a class="headerlink" href="#regressao-linear-simples" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">## Criando a base de dados:</span>
+<span class="n">dados</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+  <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">207318</span><span class="p">,</span> <span class="mi">250846</span><span class="p">,</span> <span class="mi">165755</span><span class="p">,</span> <span class="mi">219817</span><span class="p">,</span> <span class="mi">268582</span><span class="p">,</span> <span class="mi">229060</span><span class="p">],</span>
+  <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">55</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">63</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1">## Obtendo beta1</span>
+<span class="n">beta1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">y</span><span class="o">*</span><span class="n">dados</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+
+<span class="c1">## Obtendo beta0</span>
+<span class="n">beta0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">beta1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dados</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">beta0</span><span class="p">,</span> <span class="n">beta1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-760.5431794137112 3667.4148748677994
+</pre></div>
+</div>
+</div>
+</div>
+<p>Por fim, podemos conferir o nosso resultado usando a função <code>ols()</code> da biblioteca Statsmodels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">fit</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;y ~ x&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">dados</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fit</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -760.543179
+x            3667.414875
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -1085,6 +1134,7 @@ y = \frac{(x - \theta_1)^2 }{\theta_2},
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivadas-parciais">1.2.6. Derivadas parciais</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradiente-e-hessiano">1.2.7. Gradiente e Hessiano</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#series-de-taylor">1.2.8. Séries de Taylor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regressao-linear-simples">1.2.9. Regressão linear simples</a></li>
 </ul>
 </li>
 </ul>
